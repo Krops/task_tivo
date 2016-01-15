@@ -35,7 +35,12 @@ for i in episode_res:
         ep_subtitle = epsoup.find("p", {"class": "subtitle"}).getText()
         ep_info = re.compile(r"Season (\d)+, Episode (\d)+\s+(\d)+ days left")
         numb_info = ep_info.findall(ep_subtitle)
-        dateexpires = datetime.datetime.now(
+        if len(numb_info) < 1:
+            ep_info = re.compile(r"Season (\d)+, Episode (\d)+")
+            numb_info = ep_info.findall(ep_subtitle)
+            dateexpires = datetime.datetime.now()
+        else:
+            dateexpires = datetime.datetime.now(
         ) + datetime.timedelta(days=int(numb_info[0][2]))
         ep_id = epsoup.article['id'][5:]
         # collect episode info to list
