@@ -33,7 +33,7 @@ for i in episode_res:
         ep_url = z['href']
         epsoup = BeautifulSoup(requests.get(ep_url).text, 'html.parser')
         ep_subtitle = epsoup.find("p", {"class": "subtitle"}).getText()
-        ep_info = re.compile(r"Season (\d)+, Episode (\d+)+\s+(\d)+ days left")
+        ep_info = re.compile(r"Season (\d+), Episode (\d+)\s+(\d+) days left")
         numb_info = ep_info.findall(ep_subtitle)
         if len(numb_info) < 1:
             ep_info = re.compile(r"Season (\d)+, Episode (\d)+")
